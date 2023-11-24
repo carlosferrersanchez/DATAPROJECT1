@@ -9,8 +9,8 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-Welcome01}
       PGDATA: /data/postgres
     volumes:
-       - postgres:/data/postgres
-       - ./init-scripts:/docker-entrypoint-initdb.d/create_tables.sql
+      - postgres:/data/postgres
+      - ./sql:/docker-entrypoint-initdb.d  # Vincular directorio con scripts SQL
     ports:
       - "5432:5432"
     networks:
@@ -24,11 +24,11 @@ services:
       PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL:-pgadmin4@pgadmin.org}
       PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD:-admin}
     volumes:
-       - pgadmin:/root/.pgadmin
+      - pgadmin:/root/.pgadmin
     ports:
-       - "${PGADMIN_PORT:-5050}:80"
+      - "${PGADMIN_PORT:-5050}:80"
     networks:
-       - postgres
+      - postgres
     restart: unless-stopped
 
 networks:
@@ -36,5 +36,5 @@ networks:
     driver: bridge
 
 volumes:
-   postgres:
-   pgadmin:
+  postgres:
+  pgadmin:
