@@ -22,7 +22,7 @@ create table if not exists personas (
     pensionista boolean not null,
     obras_sociales int not null,
     preferencia_destino varchar(50) not null,
-    preferencia_fecha varchar(50) not null
+    preferencia_fecha varchar(50) not null,
     constraint pk_persona primary key (id_persona)
 );
 
@@ -31,6 +31,6 @@ create table if not exists destinos (
     hotel varchar(50) not null,
     ciudad varchar(50) not null,
     zona_destino varchar(50) not null,
-    fecha_viaje DATE not null
+    fecha_viaje DATE not null,
     constraint pk_destino primary key (id_destino)
 );
