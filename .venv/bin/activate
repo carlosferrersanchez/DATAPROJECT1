@@ -20,6 +20,7 @@ deactivate () {
     if [ -n "${BASH:-}" -o -n "${ZSH_VERSION:-}" ] ; then
         hash -r 2> /dev/null
     fi
+
     if [ -n "${_OLD_VIRTUAL_PS1:-}" ] ; then
         PS1="${_OLD_VIRTUAL_PS1:-}"
         export PS1
