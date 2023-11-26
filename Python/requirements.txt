@@ -1,0 +1,5 @@
+Faker
+gender-guesser
+pandas
+numpy
+scipy
