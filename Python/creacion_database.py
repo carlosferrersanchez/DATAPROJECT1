@@ -146,8 +146,18 @@ def pensionista (estado_civil, edad, pais_residencia):
   return pensionista
 
 def obras_sociales():
-  obras_sociales = True if random.random() <= 0.44 else False
-  return obras_sociales
+    if random.random() <= 0.32:
+        obras_sociales = random.choices(["1-6 días", "7-30 días", "1-3 meses", "+3 meses"], weights=[0.5, 0.25, 0.125, 0.125])[0]
+    else:
+        obras_sociales = "No"
+    return obras_sociales
+
+def vive_solo(estado_civil):
+    if estado_civil == "Casado":
+        vive_solo = False
+    else:
+        vive_solo = random.choices([True, False], weights=[0.3, 0.7])[0]
+    return vive_solo
 
 fake = Faker('es_ES')
 gender_detector = Detector()
@@ -212,6 +222,6 @@ personas_imserso["Pensión"] = personas_imserso.apply(lambda fila: pensionista(f
 
 personas_imserso['Obras Sociales'] = personas_imserso.apply(lambda fila: obras_sociales(), axis=1)
 
-
+personas_imserso['Vive Solo'] = personas_imserso['Edad'].apply(vive_solo)
 
 print(personas_imserso)
