@@ -1,6 +1,7 @@
 personas_imserso = []
 
 from faker import Faker
+from gender_guesser.detector import Detector
 import random
 import pandas as pd
 from datetime import datetime, timedelta
