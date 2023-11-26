@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: my-secret-pw
+      MYSQL_DATABASE: mi_base_de_datos
+      MYSQL_USER: user
+      MYSQL_PASSWORD: admin01
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./create_table.sql:/docker-entrypoint-initdb.d/create_table.sql

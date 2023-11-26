@@ -1,3 +1,7 @@
+
+
+-- TABLA PERSONAS
+
 create table if not exists personas (
     id_persona int not null,
     nombre varchar(50) not null,
@@ -26,6 +30,8 @@ create table if not exists personas (
     constraint pk_persona primary key (id_persona)
 );
 
+-- TABLA HOTELES
+
 create table if not exists destinos (
     id_destino int not null,
     hotel varchar(50) not null,
@@ -34,3 +40,14 @@ create table if not exists destinos (
     fecha_viaje DATE not null,
     constraint pk_destino primary key (id_destino)
 );
+
+
+
+
+
+
+
+
+
+
+
