@@ -3,5 +3,4 @@ gender-guesser
 pandas
 numpy
 scipy
-mysql-connector-python
-json
+mysql.connector

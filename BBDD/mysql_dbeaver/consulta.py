@@ -1,3 +1,5 @@
+import json
+import mysql.connector
 from conexion import hostname, database, username, password
 
 # Obtén los parámetros del usuario y la contraseña desde la URL
