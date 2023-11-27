@@ -10,16 +10,23 @@ try:
         host=hostname,
         user=username,
         password=password,
-        database=database
     )
 
     if conexion.is_connected():
         print("Conexión establecida")
-        
+
+        # Crea un cursor para ejecutar comandos SQL
+        cursor = conexion.cursor()
+
+        # Crea la base de datos si no existe
+        cursor.execute(f"CREATE DATABASE IF NOT EXISTS {database}")
+
 except mysql.connector.Error as e:
     print(f"No se ha podido establecer conexión: {e}")
+
 finally:
-    # Cierra la conexión fuera del bloque try-except para asegurar que se cierre incluso si hay una excepción.
     if 'conexion' in locals() and conexion.is_connected():
+        # Cierra el cursor antes de cerrar la conexión
+        cursor.close()
         conexion.close()
         print("Conexión cerrada")
