@@ -182,6 +182,8 @@ for i in range(100 - numero_extranjeros, 100):
 
 personas_imserso = pd.DataFrame(personas_imserso)
 
+personas_imserso['Segundo_apellido'] = personas_imserso['Segundo_apellido'].fillna(' ')
+
 personas_imserso['DNI'] = personas_imserso.apply(lambda fila: generar_dni(fila) if fila['Nacionalidad'] == 'España' else generar_NIE(fila), axis=1)
 
 personas_imserso['Telefono'] = personas_imserso.apply(lambda fila: generar_numero_telefono(), axis=1)
@@ -204,9 +206,11 @@ else:
 
 personas_imserso['Fecha_nacimiento'] = personas_imserso.apply(lambda fila: generar_fecha_nacimiento(), axis=1)
 
-personas_imserso['Edad'] = pd.to_datetime(personas_imserso['Fecha_nacimiento'], format='%d-%m-%Y', errors='coerce').apply(calcular_edad)
+personas_imserso['Edad'] = pd.to_datetime(personas_imserso['Fecha_nacimiento'], format='%Y-%m-%d', errors='coerce').apply(calcular_edad)
 
 personas_imserso['Provincia'] = personas_imserso.apply(lambda fila: generar_provincia() if fila['Pais_residencia'] == 'España' else None, axis=1)
+personas_imserso['Provincia'] = personas_imserso['Provincia'].fillna('Desconocida')
+
 
 personas_imserso['Estado_civil'] = personas_imserso.apply(lambda fila: generar_estado_civil(), axis=1)
 
@@ -217,8 +221,12 @@ personas_imserso['Hijo_discapacidad'] = personas_imserso.apply(lambda fila: hijo
 personas_imserso['Discapacidad'] = personas_imserso.apply(lambda fila: discapacidad(), axis=1)
 
 personas_imserso['Tipo_discapacidad'] = personas_imserso.apply(lambda fila: tipo_discapacidad() if fila['Discapacidad'] == True else None, axis=1)
+personas_imserso['Tipo_discapacidad'] = personas_imserso['Tipo_discapacidad'].fillna('No tiene')
+
 
 personas_imserso['Grado_discapacidad'] = personas_imserso.apply(lambda fila: grado_discapacidad() if fila['Discapacidad'] == True else None, axis=1)
+personas_imserso['Grado_discapacidad'] = personas_imserso['Grado_discapacidad'].fillna(0)
+
 
 personas_imserso['Numero_participaciones'] = personas_imserso.apply(lambda fila: numero_participaciones(), axis = 1)
 
