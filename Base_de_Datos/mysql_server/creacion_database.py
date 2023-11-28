@@ -163,12 +163,20 @@ def vive_solo(estado_civil):
         vive_solo = random.choices([True, False], weights=[0.3, 0.7])[0]
     return vive_solo
 
+def elegir_preferencias():
+  preferencia = random.choice(["Montaña", "Cultural", "Rural", "Islas", "Playa", "Gastronómico"])
+  return preferencia
+
+def elegir_meses():
+  preferencia = random.choice(["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"])
+  return preferencia
+
 fake = Faker('es_ES')
 gender_detector = Detector()
 
-personas_imserso = [generar_identidad() for _ in range(100)]
+personas_imserso = [generar_identidad() for _ in range(1000)]
 numero_extranjeros = random.randint(0,50)
-for i in range(100 - numero_extranjeros, 100):
+for i in range(1000 - numero_extranjeros, 1000):
   fake = Faker()
   personas_imserso[i]["Segundo_apellido"] = None
   personas_imserso[i]["Nombre"] = fake.first_name()
@@ -242,11 +250,15 @@ personas_imserso['Obras_sociales'] = personas_imserso.apply(lambda fila: obras_s
 
 personas_imserso['Vive_solo'] = personas_imserso['Edad'].apply(vive_solo)
 
-print(personas_imserso.head(30)) 
+personas_imserso['Preferencia_1'] = personas_imserso.apply(elegir_preferencias)
 
+personas_imserso['Preferencia_2'] = personas_imserso.apply(elegir_preferencias)
 
-import pandas as pd
+personas_imserso['Fecha_1'] = personas_imserso.apply(elegir_meses)
 
-# Verificar valores NaN por columna
-print(personas_imserso.isnull().sum())
+personas_imserso['Fecha_2'] = personas_imserso.apply(elegir_meses)
+
+personas_imserso['Fecha_3'] = personas_imserso.apply(elegir_meses)
+
+print(personas_imserso)
 
