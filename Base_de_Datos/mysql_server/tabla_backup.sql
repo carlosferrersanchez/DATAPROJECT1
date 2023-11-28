@@ -1,3 +1,4 @@
+
 -- DROP TABLE IF EXISTS
 DROP TABLE IF EXISTS personas;
 DROP TABLE IF EXISTS destinos;
@@ -42,11 +43,3 @@ create table if not exists destinos (
     fecha_viaje DATE not null,
     constraint pk_destino primary key (id_destino)
 );
-
-
-
-
-
-
-
-

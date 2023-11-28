@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Otorgar permisos de ejecución al script Python cada vez que se ejecute este script
-chmod +x mysql_server/conexion.py
+chmod +x mysql_server/conexion_test.py
 
 # Ir al directorio donde se encuentra el docker-compose.yml y el script Python
 cd mysql_server
@@ -13,6 +13,6 @@ docker-compose up -d
 sleep 5
 
 # Ejecutar tu script de Python que establece la conexión automáticamente
-python conexion.py
+python3 conexion_test.py
 
 
