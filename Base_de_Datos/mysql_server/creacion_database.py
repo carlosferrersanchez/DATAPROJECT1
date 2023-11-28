@@ -1,9 +1,11 @@
 personas_imserso = []
 
 from faker import Faker
+import pandas as pd
 from gender_guesser.detector import Detector
 from datetime import datetime, timedelta
 import numpy as np
+import random
 from scipy.stats import skewnorm
 
 def generar_identidad():

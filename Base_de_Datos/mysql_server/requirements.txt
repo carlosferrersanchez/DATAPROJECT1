@@ -6,4 +6,3 @@ scipy
 mysql.connector
 pymysql
 cryptography
-random
