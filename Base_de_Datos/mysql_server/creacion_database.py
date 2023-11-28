@@ -242,7 +242,7 @@ personas_imserso['Obras_sociales'] = personas_imserso.apply(lambda fila: obras_s
 
 personas_imserso['Vive_solo'] = personas_imserso['Edad'].apply(vive_solo)
 
-print(personas_imserso.head(10)) 
+print(personas_imserso.head(30)) 
 
 
 import pandas as pd
