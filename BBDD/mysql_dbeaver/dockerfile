@@ -1,5 +1,0 @@
-FROM python
-
-COPY conexion.py /
-
-ENTRYPOINT ["python" , "conexion.py"]
