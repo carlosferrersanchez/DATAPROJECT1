@@ -14,7 +14,8 @@ services:
       - ./create_table.sql:/docker-entrypoint-initdb.d/create_table.sql
       
   phpmyadmin:
-    image: arm64v8/phpmyadmin
+    image: phpmyadmin/phpmyadmin:latest
+    platform: linux/amd64
     restart: always
     environment:
       PMA_HOST: mysql

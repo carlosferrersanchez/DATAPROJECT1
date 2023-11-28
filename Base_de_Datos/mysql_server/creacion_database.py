@@ -5,6 +5,8 @@ from gender_guesser.detector import Detector
 from datetime import datetime, timedelta
 import numpy as np
 from scipy.stats import skewnorm
+import random
+import pandas as pd
 
 def generar_identidad():
   nombre = fake.first_name()
