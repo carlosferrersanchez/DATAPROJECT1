@@ -164,9 +164,9 @@ def vive_solo(estado_civil):
 fake = Faker('es_ES')
 gender_detector = Detector()
 
-personas_imserso = [generar_identidad() for _ in range(1000)]
+personas_imserso = [generar_identidad() for _ in range(100)]
 numero_extranjeros = random.randint(0,50)
-for i in range(1000 - numero_extranjeros, 1000):
+for i in range(100 - numero_extranjeros, 100):
   fake = Faker()
   personas_imserso[i]["Segundo_apellido"] = None
   personas_imserso[i]["Nombre"] = fake.first_name()
@@ -233,3 +233,10 @@ personas_imserso['Obras_sociales'] = personas_imserso.apply(lambda fila: obras_s
 personas_imserso['Vive_solo'] = personas_imserso['Edad'].apply(vive_solo)
 
 print(personas_imserso.head(10)) 
+
+
+import pandas as pd
+
+# Verificar valores NaN por columna
+print(personas_imserso.isnull().sum())
+
