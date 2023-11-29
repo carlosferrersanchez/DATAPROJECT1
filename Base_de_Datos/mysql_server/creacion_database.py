@@ -167,9 +167,17 @@ def elegir_preferencias():
   preferencia = random.choice(["Montaña", "Cultural", "Rural", "Islas", "Playa", "Gastronómico"])
   return preferencia
 
-def elegir_meses():
-  preferencia = random.choice(["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"])
-  return preferencia
+def elegir_preferencia_2(preferencia_1):
+    preferencias = ["Montaña", "Cultural", "Rural", "Islas", "Playa", "Gastronómico"]
+    preferencias.remove(preferencia_1) 
+    return random.choice(preferencias)
+
+def elegir_meses(fechas_seleccionadas):
+    meses_disponibles = [
+        "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
+    for fecha in fechas_seleccionadas:
+        meses_disponibles.remove(fecha) 
+    return random.choice(meses_disponibles)
 
 fake = Faker('es_ES')
 gender_detector = Detector()
@@ -250,15 +258,13 @@ personas_imserso['Obras_sociales'] = personas_imserso.apply(lambda fila: obras_s
 
 personas_imserso['Vive_solo'] = personas_imserso['Edad'].apply(vive_solo)
 
-personas_imserso['Preferencia_1'] = personas_imserso.apply(elegir_preferencias)
+personas_imserso['Preferencia_1'] = personas_imserso.apply(lambda x: elegir_preferencias(), axis=1)
 
-personas_imserso['Preferencia_2'] = personas_imserso.apply(elegir_preferencias)
+personas_imserso['Preferencia_2'] = personas_imserso.apply(lambda x: elegir_preferencia_2(x['Preferencia_1']), axis=1)
 
-personas_imserso['Fecha_1'] = personas_imserso.apply(elegir_meses)
+personas_imserso['Fecha_1'] = personas_imserso.apply(lambda x: elegir_meses([]), axis=1)
 
-personas_imserso['Fecha_2'] = personas_imserso.apply(elegir_meses)
+personas_imserso['Fecha_2'] = personas_imserso.apply(lambda x: elegir_meses([x['Fecha_1']]), axis=1)
 
-personas_imserso['Fecha_3'] = personas_imserso.apply(elegir_meses)
-
-print(personas_imserso)
+personas_imserso['Fecha_3'] = personas_imserso.apply(lambda x: elegir_meses([x['Fecha_1'], x['Fecha_2']]), axis=1)
 
