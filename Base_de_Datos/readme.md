@@ -11,3 +11,10 @@ Tenemos dos archivos de scripts, uno para cada sistema operativo, teniendo que l
         Para conectar:
           - cd Base de Datos
           - .\script.bat
+
+
+Para entrar en la Base de Datos, habra que entrar al localhost:8080 , donde veremos como está phpMyAdmin lanzado y listo para introducir las credenciales
+
+Las credenciales son:
+- Usuario: user
+- Contraseña: admin01s

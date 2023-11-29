@@ -18,14 +18,12 @@ try:
     if conexion.open:
         print("Conexión establecida")
 
-        df = personas_imserso.dropna()  # Elimina filas con valores NaN
-
         nombre_tabla = 'personas'
 
-        valores = df.values.tolist()
+        valores = personas_imserso.values.tolist()
 
-        columnas = ', '.join(df.columns)
-        marcadores = ', '.join(['%s'] * len(df.columns))
+        columnas = ', '.join(personas_imserso.columns)
+        marcadores = ', '.join(['%s'] * len(personas_imserso.columns))
         consulta = f"INSERT INTO {nombre_tabla} ({columnas}) VALUES ({marcadores})"
 
         cursor = conexion.cursor()
