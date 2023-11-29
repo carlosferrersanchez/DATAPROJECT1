@@ -1,6 +1,6 @@
 #!/bin/bash
 
-chmod +x mysql_server/conexion_test.py
+chmod +x mysql_server/conexion.py
 
 cd mysql_server
 
@@ -10,6 +10,6 @@ docker-compose up -d
 
 sleep 5
 
-python3 conexion_test.py
+python3 conexion.py
 
 

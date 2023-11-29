@@ -29,6 +29,11 @@ CREATE TABLE IF NOT EXISTS personas (
     Pension VARCHAR(50),
     Obras_sociales VARCHAR(50) NOT NULL,
     Vive_solo BOOLEAN NOT NULL,
+    Preferencia_1 VARCHAR(50),
+    Preferencia_2 VARCHAR(50),
+    Fecha_1 VARCHAR(50),
+    Fecha_2 VARCHAR(50),
+    Fecha_3 VARCHAR(50),
     CONSTRAINT pk_persona PRIMARY KEY (id_persona)
 );
 
