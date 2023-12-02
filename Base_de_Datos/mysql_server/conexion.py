@@ -32,10 +32,6 @@ try:
 
         print(f"Datos insertados correctamente en la tabla '{nombre_tabla}' de la base de datos '{database}'")
 
-except pymysql.err.OperationalError as e:
-    print(f"Error de conexión: {e}")
-except pymysql.err.ProgrammingError as e:
-    print(f"Error en la consulta SQL: {e}")
 except Exception as e:
     print(f"Error desconocido: {e}")
 finally:
