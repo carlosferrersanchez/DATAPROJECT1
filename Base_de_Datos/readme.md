@@ -17,4 +17,4 @@ Para entrar en la Base de Datos, habra que entrar al localhost:8080 , donde vere
 
 Las credenciales son:
 - Usuario: user
-- Contraseña: admin01s
+- Contraseña: admin01

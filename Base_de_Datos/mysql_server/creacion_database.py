@@ -182,9 +182,9 @@ def elegir_meses(fechas_seleccionadas):
 fake = Faker('es_ES')
 gender_detector = Detector()
 
-personas_imserso = [generar_identidad() for _ in range(3000)]
+personas_imserso = [generar_identidad() for _ in range(1000)]
 numero_extranjeros = random.randint(0,50)
-for i in range(3000 - numero_extranjeros, 3000):
+for i in range(1000 - numero_extranjeros, 1000):
   fake = Faker()
   personas_imserso[i]["Segundo_apellido"] = None
   personas_imserso[i]["Nombre"] = fake.first_name()
@@ -197,6 +197,10 @@ for i in range(3000 - numero_extranjeros, 3000):
   else:
     personas_imserso[i]["Sexo"] = random.choice(["Masculino", "Femenino"])
   personas_imserso[i]["Nacionalidad"] = fake.country()
+
+print("-------------------------------------------------------------\n"
+      "Generando Database...\n"
+      "-------------------------------------------------------------")
 
 personas_imserso = pd.DataFrame(personas_imserso)
 
@@ -218,7 +222,7 @@ paises_generados = [fake.country() for _ in range(numero_no_residentes)]
 if len(indices_seleccionados) == len(paises_generados):
     personas_imserso.loc[indices_seleccionados, 'Pais_residencia'] = paises_generados
     personas_imserso = personas_imserso.sample(frac=1).reset_index(drop=True)
-    print("Valores asignados correctamente")
+    print("Valores asignándose correctamente...")
 else: 
     print("La longitud de los indices seleccionados no coincide con la lista de paises generados")
 
@@ -268,3 +272,7 @@ personas_imserso['Fecha_2'] = personas_imserso.apply(lambda x: elegir_meses([x['
 
 personas_imserso['Fecha_3'] = personas_imserso.apply(lambda x: elegir_meses([x['Fecha_1'], x['Fecha_2']]), axis=1)
 
+
+print("-------------------------------------------------------------\n"
+      "Database Creada Correctamente\n"
+      "-------------------------------------------------------------")
