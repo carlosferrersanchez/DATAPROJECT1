@@ -10,7 +10,7 @@ CREATE TABLE IF NOT EXISTS personas (
     Primer_apellido VARCHAR(50) NOT NULL,
     Segundo_apellido VARCHAR(50) NOT NULL,
     Sexo VARCHAR(50) NOT NULL,
-    Nacionalidad VARCHAR(50) NOT NULL,
+    Nacionalidad VARCHAR(1000) NOT NULL,
     DNI VARCHAR(50) NOT NULL,
     Telefono VARCHAR(15) NOT NULL,
     Pais_residencia VARCHAR(10000) NOT NULL,

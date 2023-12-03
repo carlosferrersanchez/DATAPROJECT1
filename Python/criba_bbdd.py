@@ -5,7 +5,7 @@ database = 'mi_base_de_datos'
 username = 'user'
 password = 'admin01'
 
-# Funciones para las características excluyentes #
+### Funciones para las características excluyentes ###∫
         # NO españoles que NO residan en España
         # SI españoles que NO reciban algun tipo de pensión
         # Pensionistas de viudedad de menos de 55 años
@@ -21,7 +21,7 @@ def españoles_sin_pension(cursor):
     cursor.execute(consulta)
 
 def pension_viudedad_menor_55(cursor):
-    consulta = "DELETE FROM personas WHERE Pension = 'Viudead' AND EDAD < 55"
+    consulta = "DELETE FROM personas WHERE Pension = 'Viuedad' AND EDAD < 55"
     cursor.execute(consulta)
 
 def desempleados_menor_60(cursor):
@@ -32,7 +32,9 @@ def beneficiarios_ss_menores_65(cursor):
     consulta = "DELETE FROM personas WHERE Pension = 'Titular SS' AND EDAD < 65"
     cursor.execute(consulta)
 
-
+def personas_multiples_discapacidades(cursor):
+    consulta = "DELETE FROM personas WHERE grado_discapacidad > 2"
+    cursor.execute(consulta)
 
 try:
     conexion = pymysql.connect(
@@ -55,6 +57,7 @@ try:
         pension_viudedad_menor_55(cursor)
         desempleados_menor_60(cursor)
         beneficiarios_ss_menores_65(cursor)
+        personas_multiples_discapacidades(cursor)
 
         # Confirmar los cambios en la base de datos
         conexion.commit()
@@ -64,7 +67,7 @@ try:
         cursor.close()
 
 except Exception as e:
-    print(f"Error desconocido: {e}")
+    print(f"Error: {e}")
     conexion.rollback()
 
 finally:
