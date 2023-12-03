@@ -6,24 +6,34 @@ username = 'user'
 password = 'admin01'
 
 ## Funciones para hacer Valoraciones y sumar puntos ##
-
-def actualizar_valoracion(cursor, id_persona, valoracion):
-    consulta = "UPDATE personas SET valoraciones_personas = %s WHERE id = %s"
-    cursor.execute(consulta, (valoracion, id_persona))
     
 def valoracion_renta_economica(cursor):
     consulta = """
         UPDATE personas
         SET valoraciones_personas =
             CASE
-                WHEN renta < 6700 THEN (valoraciones_personas + 70)
-                WHEN renta BETWEEN 6700 AND 13000 THEN (valoraciones_personas + 60)
-                WHEN renta BETWEEN 13001 AND 20000 THEN (valoraciones_personas + 50)
-                WHEN renta BETWEEN 20001 AND 35000 THEN (valoraciones_personas + 40)
-                WHEN renta BETWEEN 35001 AND 60000 THEN (valoraciones_personas + 30)
-                WHEN renta BETWEEN 60001 AND 100000 THEN (valoraciones_personas + 20)
-                WHEN renta BETWEEN 100001 AND 300000 THEN (valoraciones_personas + 10)
-                WHEN renta > 300001 THEN (valoraciones_personas + 0)
+                WHEN valoraciones_personas IS NULL THEN
+                    CASE
+                        WHEN renta < 6700 THEN 70
+                        WHEN renta BETWEEN 6700 AND 13000 THEN 60
+                        WHEN renta BETWEEN 13001 AND 20000 THEN 50
+                        WHEN renta BETWEEN 20001 AND 35000 THEN 40
+                        WHEN renta BETWEEN 35001 AND 60000 THEN 30
+                        WHEN renta BETWEEN 60001 AND 100000 THEN 20
+                        WHEN renta BETWEEN 100001 AND 300000 THEN 10
+                        WHEN renta > 300001 THEN 0
+                    END
+                ELSE
+                    CASE
+                        WHEN renta < 6700 THEN (valoraciones_personas + 70)
+                        WHEN renta BETWEEN 6700 AND 13000 THEN (valoraciones_personas + 60)
+                        WHEN renta BETWEEN 13001 AND 20000 THEN (valoraciones_personas + 50)
+                        WHEN renta BETWEEN 20001 AND 35000 THEN (valoraciones_personas + 40)
+                        WHEN renta BETWEEN 35001 AND 60000 THEN (valoraciones_personas + 30)
+                        WHEN renta BETWEEN 60001 AND 100000 THEN (valoraciones_personas + 20)
+                        WHEN renta BETWEEN 100001 AND 300000 THEN (valoraciones_personas + 10)
+                        WHEN renta > 300001 THEN (valoraciones_personas + 0)
+                    END
             END
         """
     cursor.execute(consulta)
@@ -61,6 +71,7 @@ def valoracion_grado_discapacidad(cursor):
                 WHEN grado_discapacidad = 0 THEN (valoraciones_personas + 0)
                 WHEN grado_discapacidad = 1 THEN (valoraciones_personas + 20)
                 WHEN grado_discapacidad = 2 THEN (valoraciones_personas + 30)
+                ELSE valoraciones_personas + 0
                 END
             """
     cursor.execute(consulta)
@@ -71,6 +82,7 @@ def valoracion_disc_multiple(cursor):
         SET valoraciones_personas =
             CASE
                 WHEN tipo_discapacidad = 'Multiple' THEN (valoraciones_personas + 10)
+                ELSE valoraciones_personas + 0
                 END
             """
     cursor.execute(consulta)
@@ -86,7 +98,7 @@ def valoracion_edad(cursor):
                 WHEN edad BETWEEN 70 AND 74 THEN (valoraciones_personas + 20)
                 WHEN edad BETWEEN 75 AND 79 THEN (valoraciones_personas + 25)
                 WHEN edad > 80 THEN (valoraciones_personas + 30)
-                ELSE 0
+                ELSE valoraciones_personas + 0
                 END
             """
     cursor.execute(consulta)
@@ -123,17 +135,16 @@ try:
 
         cursor = conexion.cursor()
 
-        ## Comprobar si la columna "valoraciones_personas" existe, para borrarla en caso de que si ##
-
+        # Verificar si la columna ya existe en la tabla
         cursor.execute("SHOW COLUMNS FROM personas LIKE 'valoraciones_personas'")
         resultado = cursor.fetchone()
-        if resultado:
-            cursor.execute("ALTER TABLE personas DROP COLUMN valoraciones_personas")
 
-        ## Creación de la columna "valoraciones_columnas" con valor inicial 0 ##
+        # Si la columna no existe, crearla con valor predeterminado 0
+        if not resultado:
+            cursor.execute("ALTER TABLE personas ADD COLUMN valoraciones_personas int DEFAULT 0")
 
-        nueva_columna = "ALTER TABLE personas ADD valoraciones_personas int DEFAULT 0"
-        cursor.execute(nueva_columna)
+        conexion.commit()
+
 
         ## Llamada a funciones para hacer Valoraciones ##
 
@@ -145,8 +156,8 @@ try:
         valoracion_edad(cursor)
         valoracion_personas_dependientes(cursor)
 
-        conexion.commit()
 
+        conexion.commit()
         print("Valoración de las Personas Solicitantes ejecutada")
 
         cursor.close()
@@ -161,3 +172,6 @@ finally:
         print("-------------------------------------------------------------\n"
               "Conexión cerrada\n"
               "-------------------------------------------------------------")
+
+        
+
