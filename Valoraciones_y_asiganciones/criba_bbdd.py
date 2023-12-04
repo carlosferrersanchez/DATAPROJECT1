@@ -5,7 +5,7 @@ database = 'mi_base_de_datos'
 username = 'user'
 password = 'admin01'
 
-### Funciones para las características excluyentes ###∫
+### Funciones para las características excluyentes ###
         # NO españoles que NO residan en España
         # SI españoles que NO reciban algun tipo de pensión
         # Pensionistas de viudedad de menos de 55 años

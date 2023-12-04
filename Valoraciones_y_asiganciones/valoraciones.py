@@ -12,29 +12,14 @@ def valoracion_renta_economica(cursor):
         UPDATE personas
         SET valoraciones_personas =
             CASE
-                WHEN valoraciones_personas IS NULL THEN
-                    CASE
-                        WHEN renta < 6700 THEN 70
-                        WHEN renta BETWEEN 6700 AND 13000 THEN 60
-                        WHEN renta BETWEEN 13001 AND 20000 THEN 50
-                        WHEN renta BETWEEN 20001 AND 35000 THEN 40
-                        WHEN renta BETWEEN 35001 AND 60000 THEN 30
-                        WHEN renta BETWEEN 60001 AND 100000 THEN 20
-                        WHEN renta BETWEEN 100001 AND 300000 THEN 10
-                        WHEN renta > 300001 THEN 0
-                    END
-                ELSE
-                    CASE
-                        WHEN renta < 6700 THEN (valoraciones_personas + 70)
-                        WHEN renta BETWEEN 6700 AND 13000 THEN (valoraciones_personas + 60)
-                        WHEN renta BETWEEN 13001 AND 20000 THEN (valoraciones_personas + 50)
-                        WHEN renta BETWEEN 20001 AND 35000 THEN (valoraciones_personas + 40)
-                        WHEN renta BETWEEN 35001 AND 60000 THEN (valoraciones_personas + 30)
-                        WHEN renta BETWEEN 60001 AND 100000 THEN (valoraciones_personas + 20)
-                        WHEN renta BETWEEN 100001 AND 300000 THEN (valoraciones_personas + 10)
-                        WHEN renta > 300001 THEN (valoraciones_personas + 0)
-                    END
-            END
+                    WHEN renta < 6700 THEN 65
+                    WHEN renta BETWEEN 6700 AND 13000 THEN 54
+                    WHEN renta BETWEEN 13001 AND 20000 THEN 43
+                    WHEN renta BETWEEN 20001 AND 35000 THEN 32
+                    WHEN renta BETWEEN 35001 AND 60000 THEN 21
+                    WHEN renta BETWEEN 60001 AND 100000 THEN 10
+                    WHEN renta > 100001 THEN 0
+                END
         """
     cursor.execute(consulta)
 
@@ -43,7 +28,7 @@ def valoracion_participaciones_anteriores(cursor):
         UPDATE personas
         SET valoraciones_personas =
             CASE
-                WHEN numero_participaciones = 0 THEN (valoraciones_personas + 30)
+                WHEN numero_participaciones = 0 THEN (valoraciones_personas + 32)
                 WHEN numero_participaciones BETWEEN 1 AND 2 THEN (valoraciones_personas + 18)
                 WHEN numero_participaciones BETWEEN 3 AND 6 THEN (valoraciones_personas + 12)
                 WHEN numero_participaciones BETWEEN 7 AND 10 THEN (valoraciones_personas + 6)
@@ -58,7 +43,7 @@ def valoracion_aislamiento_social(cursor):
         SET valoraciones_personas =
             CASE
                 WHEN vive_solo = 0 THEN (valoraciones_personas + 0)
-                WHEN vive_solo = 1 THEN (valoraciones_personas + 30)
+                WHEN vive_solo = 1 THEN (valoraciones_personas + 25)
             END
         """
     cursor.execute(consulta)
@@ -69,7 +54,7 @@ def valoracion_grado_discapacidad(cursor):
         SET valoraciones_personas =
             CASE
                 WHEN grado_discapacidad = 0 THEN (valoraciones_personas + 0)
-                WHEN grado_discapacidad = 1 THEN (valoraciones_personas + 20)
+                WHEN grado_discapacidad = 1 THEN (valoraciones_personas + 15)
                 WHEN grado_discapacidad = 2 THEN (valoraciones_personas + 30)
                 ELSE valoraciones_personas + 0
                 END
@@ -93,11 +78,11 @@ def valoracion_edad(cursor):
         SET valoraciones_personas =
             CASE
                 WHEN edad BETWEEN 55 AND 59 THEN (valoraciones_personas + 0)
-                WHEN edad BETWEEN 60 AND 64 THEN (valoraciones_personas + 5)
-                WHEN edad BETWEEN 65 AND 69 THEN (valoraciones_personas + 15)
-                WHEN edad BETWEEN 70 AND 74 THEN (valoraciones_personas + 20)
-                WHEN edad BETWEEN 75 AND 79 THEN (valoraciones_personas + 25)
-                WHEN edad > 80 THEN (valoraciones_personas + 30)
+                WHEN edad BETWEEN 60 AND 64 THEN (valoraciones_personas + 7)
+                WHEN edad BETWEEN 65 AND 69 THEN (valoraciones_personas + 14)
+                WHEN edad BETWEEN 70 AND 74 THEN (valoraciones_personas + 21)
+                WHEN edad BETWEEN 75 AND 79 THEN (valoraciones_personas + 28)
+                WHEN edad > 80 THEN (valoraciones_personas + 35)
                 ELSE valoraciones_personas + 0
                 END
             """
@@ -117,6 +102,19 @@ def valoracion_personas_dependientes(cursor):
             """
     cursor.execute(consulta)    
 
+def valoracion_obras_sociales(cursor):
+    consulta = """
+        UPDATE personas
+        SET valoraciones_personas =
+            CASE
+                WHEN obras_sociales = 'No' THEN (valoraciones_personas + 0)
+                WHEN obras_sociales = '1-6 dias' THEN (valoraciones_personas + 1)
+                WHEN obras_sociales = '7-30 dias' THEN (valoraciones_personas + 2)
+                WHEN obras_sociales = '1-3 meses' THEN (valoraciones_personas + 3)
+                WHEN obras_sociales > '+3 meses' THEN (valoraciones_personas + 4)
+                END
+            """
+    cursor.execute(consulta)    
 
 ## Conexion a la BBDD para las valoraciones ##
 
@@ -155,6 +153,7 @@ try:
         valoracion_disc_multiple(cursor)
         valoracion_edad(cursor)
         valoracion_personas_dependientes(cursor)
+        valoracion_obras_sociales(cursor)
 
 
         conexion.commit()

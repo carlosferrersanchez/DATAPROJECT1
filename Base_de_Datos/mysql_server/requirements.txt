@@ -3,6 +3,5 @@ gender-guesser
 pandas
 numpy
 scipy
-mysql.connector
 pymysql
 cryptography
