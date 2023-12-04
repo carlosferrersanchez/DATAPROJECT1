@@ -77,7 +77,6 @@ viaje_gastronómico_provincias = {
 
 def asignar_viajes(personas, plazas_por_provincia):
     provincias_asignadas = defaultdict(list)
-
     for persona in personas:
         pref1 = persona["preferencia_1"]
         pref2 = persona["preferencia_2"]
@@ -86,7 +85,7 @@ def asignar_viajes(personas, plazas_por_provincia):
         
         preferencias = [pref1, pref2]
 
-    for preferencia in preferencias:
+        for preferencia in preferencias:
             for provincia in preferencia:
                 if plazas_por_provincia[provincia] > 0:
                     plazas_por_provincia[provincia] -= 1
@@ -95,7 +94,6 @@ def asignar_viajes(personas, plazas_por_provincia):
             else:
                 continue
             break  
-    
 
     return provincias_asignadas
 
@@ -111,36 +109,44 @@ try:
         print("Conexión establecida")
         cursor = conexion.cursor()
 
-        cursor.execute("SHOW COLUMNS FROM personas LIKE 'asignacion_experiencia'")
-        resultado = cursor.fetchone()
-        if not resultado:
-            cursor.execute("ALTER TABLE personas ADD COLUMN asignacion_experiencia VARCHAR(50)")
-
+        # Verifica si existen las columnas 'asignacion_viaje' y 'asignacion_provincia' en la tabla 'personas'
+        cursor.execute("SHOW COLUMNS FROM personas LIKE 'asignacion_viaje'")
+        asignacion_viaje_column = cursor.fetchone()
+        if asignacion_viaje_column is None:
+            cursor.execute("ALTER TABLE personas ADD COLUMN asignacion_viaje VARCHAR(50)")
 
         cursor.execute("SHOW COLUMNS FROM personas LIKE 'asignacion_provincia'")
-        resultado = cursor.fetchone()
-        if not resultado:
+        asignacion_provincia_column = cursor.fetchone()
+        if asignacion_provincia_column is None:
             cursor.execute("ALTER TABLE personas ADD COLUMN asignacion_provincia VARCHAR(50)")
 
         conexion.commit()
-       
 
-        consulta_personas = "SELECT id, valoraciones_personas, preferencia_1, preferencia_2 FROM personas"
-        cursor.execute(consulta_personas)
+
+
+        # Obtiene las personas ordenadas por su puntuación
+        cursor.execute("SELECT id_persona, valoraciones_personas, preferencia_1, preferencia_2 FROM personas ORDER BY valoraciones_personas DESC")
         personas = cursor.fetchall()
 
-        # Llamamos a la función para asignar los viajes
-        provincias_asignadas = asignar_viajes(personas, plazas_por_provincia)
+        # Asigna los viajes a las personas
+        plazas_por_viaje = {
+            "viaje_montaña_provincias": viaje_montaña_provincias,
+            "viaje_cultural_provincias": viaje_cultural_provincias,
+            "viaje_gastronómico_provincias": viaje_gastronómico_provincias,
+            "viaje_islas_provincias": viaje_islas_provincias,
+            "viaje_playa_provincias": viaje_playa_provincias,
+            "viaje_rural_provincias": viaje_rural_provincias,
+        }
+        provincias_asignadas = asignar_viajes(personas, plazas_por_viaje)
 
-        # Actualizar la base de datos con las asignaciones de provincias a las personas
+        # Actualiza la base de datos con las asignaciones de provincias a las personas
         for persona_id, provincias in provincias_asignadas.items():
             provincias_str = ",".join(provincias)
-            actualizacion = f"UPDATE personas SET provincias_asignadas = '{provincias_str}' WHERE id = {persona_id}"
+            actualizacion = f"UPDATE personas SET asignacion_provincia = '{provincias_str}' WHERE id_persona = {persona_id}"
             cursor.execute(actualizacion)
 
         conexion.commit()
-
-        print("Viajes asignados Correctamente")
+        print("Viajes asignados correctamente")
 
         cursor.close()
 
