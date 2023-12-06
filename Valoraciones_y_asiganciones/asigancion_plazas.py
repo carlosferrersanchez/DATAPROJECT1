@@ -12,7 +12,7 @@ viaje_montaña_provincias = {
     "Huesca": 20,
     "Lérida": 20,
     "Navarra": 20,
-    "Granda": 20,
+    "Granada": 20,
     "Lugo": 20
 }
 
