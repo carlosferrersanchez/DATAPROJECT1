@@ -68,7 +68,6 @@ viaje_gastronómico_provincias = {
     "Guipúzcoa": 20,
     "Madrid": 20,
     "Valencia": 20,
-    "Girona": 20,
     "Álava": 20,
     "La Rioja": 20,
     "Vizcaya": 20,
