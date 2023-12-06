@@ -111,7 +111,7 @@ def valoracion_obras_sociales(cursor):
                 WHEN obras_sociales = '1-6 dias' THEN (valoraciones_personas + 1)
                 WHEN obras_sociales = '7-30 dias' THEN (valoraciones_personas + 2)
                 WHEN obras_sociales = '1-3 meses' THEN (valoraciones_personas + 3)
-                WHEN obras_sociales > '+3 meses' THEN (valoraciones_personas + 4)
+                WHEN obras_sociales = '+3 meses' THEN (valoraciones_personas + 4)
                 END
             """
     cursor.execute(consulta)    
