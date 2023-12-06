@@ -88,7 +88,7 @@ try:
         print("Conexión establecida")
         cursor = conexion.cursor()
 
-                # Verifica si existen las columnas 'asignacion_viaje' y 'asignacion_provincia' en la tabla 'personas'
+        # Verifica si existen las columnas 'asignacion_viaje' y 'asignacion_provincia' en la tabla 'personas'
         cursor.execute("SHOW COLUMNS FROM personas LIKE 'asignacion_viaje'")
         asignacion_viaje_column = cursor.fetchone()
         if asignacion_viaje_column is None:
