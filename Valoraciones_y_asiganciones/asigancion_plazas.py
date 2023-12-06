@@ -12,7 +12,7 @@ viaje_montaña_provincias = {
     "Huesca": 20,
     "Lérida": 20,
     "Navarra": 20,
-    "Granda": 20,
+    "Granada": 20,
     "Lugo": 20
 }
 
@@ -68,7 +68,6 @@ viaje_gastronómico_provincias = {
     "Guipúzcoa": 20,
     "Madrid": 20,
     "Valencia": 20,
-    "Girona": 20,
     "Álava": 20,
     "La Rioja": 20,
     "Vizcaya": 20,
