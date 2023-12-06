@@ -8,7 +8,7 @@ provincias = ['Álava', 'Albacete', 'Alicante', 'Almería', 'Asturias', 'Ávila'
 meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre']
 
 for provincia in provincias:
-    rating = round(np.random.normal(loc=3, scale=1), 1)
+    rating = np.clip(round(np.random.normal(loc=3, scale=1), 1), 0.1, 5.0)
     estrellas = random.randint(3,5)
     for mes in meses:
         data['Provincia'].append(provincia)
