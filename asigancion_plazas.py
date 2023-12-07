@@ -98,15 +98,23 @@ try:
         if asignacion_provincia_column is None:
             cursor.execute("ALTER TABLE personas ADD COLUMN asignacion_provincia VARCHAR(50)")
 
-
-        cursor.execute("SELECT id_persona, preferencia_1, preferencia_2, valoraciones_personas FROM personas")
+        cursor.execute("""
+            SELECT id_persona, Nombre, Primer_apellido, Segundo_apellido, DNI, preferencia_1, preferencia_2, fecha_1, fecha_2, fecha_3
+            FROM personas
+        """)
         personas = cursor.fetchall()
 
         for persona in personas:
             id_persona = persona[0]
-            preferencia1 = persona[1]
-            preferencia2 = persona[2]
-            valoraciones_personas = persona[3]
+            nombre = persona[1]
+            primer_apellido = persona[2]
+            segundo_apellido = persona[3]
+            dni = persona[4]
+            preferencia1 = persona[5]
+            preferencia2 = persona[6]
+            fecha1 = persona[7]
+            fecha2 = persona[8]
+            fecha3 = persona[9]
 
             viajes_disponibles = {
                 "Montaña": viaje_montaña_provincias,
@@ -117,31 +125,43 @@ try:
                 "Rural": viaje_rural_provincias,
             }
 
-            for preferencia in [preferencia1, preferencia2]:
-                if preferencia in viajes_disponibles:
-                    provincias_disponibles = viajes_disponibles[preferencia]
-                    if len(provincias_disponibles) > 0:
-                        provincia_elegida = random.choice(list(provincias_disponibles.keys()))
-                        plazas_disponibles = provincias_disponibles[provincia_elegida]
+            for fecha in [fecha1, fecha2, fecha3]:
+                for preferencia in [preferencia1, preferencia2]:
+                    if preferencia in viajes_disponibles:
+                        provincias_disponibles = viajes_disponibles[preferencia]
+                        if len(provincias_disponibles) > 0:
+                            provincia_elegida = random.choice(list(provincias_disponibles.keys()))
+                            plazas_disponibles = provincias_disponibles[provincia_elegida]
 
-                        if plazas_disponibles > 0:
-                            cursor.execute("UPDATE personas SET asignacion_viaje=%s, asignacion_provincia=%s WHERE id_persona=%s",
-                                           (preferencia, provincia_elegida, id_persona))
-                            conexion.commit()
-                            print(f"Viaje asignado a la persona {id_persona}: {preferencia} - {provincia_elegida}")
-                            break
+                            if plazas_disponibles > 0:
+                                cursor.execute("""
+                                    INSERT INTO viajes_asignados 
+                                    (id_persona, Nombre, Primer_apellido, Segundo_apellido, DNI, Ciudad, Mes, Valoracion) 
+                                    VALUES (%s, %s, %s, %s, %s, %s, %s, %s)
+                                """, (id_persona, nombre, primer_apellido, segundo_apellido, dni, provincia_elegida, fecha, 0))
+                                conexion.commit()
+                                print(f"Viaje asignado a la persona {id_persona}: {preferencia} - {provincia_elegida}")
+                                provincias_disponibles[provincia_elegida] -= 1
+                                break
+                            else:
+                                del provincias_disponibles[provincia_elegida]
                         else:
-                            del provincias_disponibles[provincia_elegida]
+                            print(f"No hay provincias disponibles para {preferencia} para la persona {id_persona}")
                     else:
-                        print(f"No hay provincias disponibles para {preferencia} para la persona {id_persona}")
+                        print(f"Preferencia '{preferencia}' no encontrada para la persona {id_persona}")
+
                 else:
-                    print(f"Preferencia '{preferencia}' no encontrada para la persona {id_persona}")
+                    continue  # Este bloque se ejecuta si el bucle interno se completa sin un "break"
+
+                break  # Este bloque se ejecuta si el bucle interno se rompe con un "break"
 
             else:
-                cursor.execute("UPDATE personas SET asignacion_viaje='No Tiene Viaje', asignacion_provincia='' WHERE id_persona=%s",
-                               (id_persona,))
+                cursor.execute("""
+                    INSERT INTO lista_espera (id_persona, Nombre, Primer_apellido, Segundo_apellido, DNI, Valoracion)
+                    VALUES (%s, %s, %s, %s, %s, %s)
+                """, (id_persona, nombre, primer_apellido, segundo_apellido, dni, 0))
                 conexion.commit()
-                print(f"No hay viajes disponibles para la persona {id_persona}")
+                print(f"No hay viajes disponibles para la persona {id_persona}, se agregó a la lista de espera")
 
         cursor.close()
 
@@ -153,4 +173,3 @@ finally:
     if 'conexion' in locals() and conexion.open:
         conexion.close()
         print("Conexión cerrada")
-
