@@ -36,24 +36,9 @@ try:
     )
 
     if conexion.open:
-        print("Conexión establecida")
-
-        # Agregar una nueva columna como clave primaria compuesta
-        cursor_agregar_columna = conexion.cursor()
-        comando_agregar_columna = """
-            ALTER TABLE plazas_disponibles
-            ADD COLUMN pk_nueva VARCHAR(100),
-            ADD PRIMARY KEY (pk_nueva)
-        """
-        cursor_agregar_columna.execute(comando_agregar_columna)
-
-        # Actualizar la columna creada con la combinación de las otras dos columnas
-        cursor_actualizar = conexion.cursor()
-        comando_actualizacion = """
-            UPDATE plazas_disponibles
-            SET pk_nueva = CONCAT(nombreprovincia, '_', mesdelaño)
-        """
-        cursor_actualizar.execute(comando_actualizacion)
+        print("-------------------------------------------------------------\n"
+             "Conexión establecida\n"
+             "-------------------------------------------------------------")
 
         nombre_tabla_plazas = 'plazas_disponibles'
 
@@ -72,6 +57,5 @@ except Exception as e:
 finally:
     if 'conexion' in locals() and conexion.open:
         conexion.close()
-        print("Conexión cerrada")
-
-
+        print("-------------------------------------------------------------\n"
+              "Conexión cerrada")
