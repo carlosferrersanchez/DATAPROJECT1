@@ -65,6 +65,7 @@ CREATE TABLE IF NOT EXISTS viajes_asignados (
     DNI VARCHAR(50) NOT NULL,
     Ciudad VARCHAR(50) NOT NULL,
     Mes VARCHAR(50) NOT NULL,
+    Fecha_viaje VARCHAR(50) NOT NULL,
     Valoracion INT NOT NULL,
     CONSTRAINT pk_viaje PRIMARY KEY (id_viaje)
 );
