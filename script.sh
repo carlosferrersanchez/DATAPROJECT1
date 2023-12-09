@@ -1,8 +1,6 @@
 #!/bin/bash
 
-chmod +x mysql_server/conexion.py
-
-cd mysql_server
+chmod +x conexion.py
 
 pip3 install -r requirements.txt
 

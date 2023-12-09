@@ -1,8 +1,6 @@
 :: script.bat
 
-icacls mysql_server\conexion.py /grant Everyone:F
-
-cd mysql_server
+icacls conexion.py /grant Everyone:F
 
 pip install -r requirements.txt
 

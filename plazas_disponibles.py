@@ -11,10 +11,10 @@ datos_plazas = []
 
 for i in range(600):
     ciudad = fake.city()
-    hotel = f'Hotel_{random.randint(1, 10)}'
+    hotel = f'Hotel_{random.randint(1, 10)}' # CAMBIAR ESTO
     estrellas_hotel = random.randint(3, 5)
-    zona_destino = f'Zona_{random.randint(1, 5)}'
-    tipo_exp = f'Tipo_{random.randint(1, 3)}'
+    zona_destino = f'Zona_{random.randint(1, 5)}' # CAMBIAR ESTO
+    tipo_exp = f'Tipo_{random.randint(1, 3)}' # CAMBIAR ESTO
     mes = random.choice(["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"])
     fecha_viaje = (datetime.now() + timedelta(days=random.randint(1, 365))).strftime('%Y-%m-%d')
     num_plazas = 9
@@ -36,9 +36,24 @@ try:
     )
 
     if conexion.open:
-        print("-------------------------------------------------------------\n"
-             "Conexión establecida\n"
-             "-------------------------------------------------------------")
+        print("Conexión establecida")
+
+        # Agregar una nueva columna como clave primaria compuesta
+        cursor_agregar_columna = conexion.cursor()
+        comando_agregar_columna = """
+            ALTER TABLE plazas_disponibles
+            ADD COLUMN pk_nueva VARCHAR(100),
+            ADD PRIMARY KEY (pk_nueva)
+        """
+        cursor_agregar_columna.execute(comando_agregar_columna)
+
+        # Actualizar la columna creada con la combinación de las otras dos columnas
+        cursor_actualizar = conexion.cursor()
+        comando_actualizacion = """
+            UPDATE plazas_disponibles
+            SET pk_nueva = CONCAT(nombreprovincia, '_', mesdelaño)
+        """
+        cursor_actualizar.execute(comando_actualizacion)
 
         nombre_tabla_plazas = 'plazas_disponibles'
 
@@ -57,5 +72,6 @@ except Exception as e:
 finally:
     if 'conexion' in locals() and conexion.open:
         conexion.close()
-        print("-------------------------------------------------------------\n"
-              "Conexión cerrada")
+        print("Conexión cerrada")
+
+
