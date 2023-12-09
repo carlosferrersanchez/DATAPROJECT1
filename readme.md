@@ -4,9 +4,10 @@ flujo -->
 1- install requirements
 2- docker-compose up -d
 3- conexion.py
-4- criba_bbdd
-5- valoraciones.py
-6- asignacion_plazas.py
+4- plazas_disponibles.py
+5- criba_bbdd
+6- valoraciones.py
+7- asignacion_plazas.py
 
 
 Base de datos conectada y funcionando en localhost
