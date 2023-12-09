@@ -79,9 +79,8 @@ try:
                     INSERT INTO viajes_asignados 
                     (id_persona, Nombre, Primer_apellido, Segundo_apellido, DNI, Ciudad, Mes, Fecha_viaje, Valoracion) 
                     VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-                """, (id_persona, nombre, primer_apellido, segundo_apellido, dni, provincia_elegida, fecha_elegida, fecha_viaje, 0))
+                """, (id_persona, nombre, primer_apellido, segundo_apellido, dni, provincia_elegida, fecha_elegida, fecha_viaje, Valoracion))
                 conexion.commit()
-                print(f"Viaje asignado a la persona {id_persona}: {provincia_elegida} - {fecha_elegida}")
                 cursor.execute("""
                     UPDATE plazas_disponibles
                     SET Num_plazas = Num_plazas - 1
@@ -94,7 +93,6 @@ try:
                     VALUES (%s, %s, %s, %s, %s, %s)
                 """, (id_persona, nombre, primer_apellido, segundo_apellido, dni, Valoracion))
                 conexion.commit()
-                print(f"No hay viajes disponibles para la persona {id_persona}, se agregó a la lista de espera")
 
         cursor.close()
 
