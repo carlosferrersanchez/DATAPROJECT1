@@ -232,7 +232,7 @@ for ciudad in ciudades:
 
 # Insertar datos en la tabla 'plazas_disponibles'
 hostname = '127.0.0.1'
-database = 'mi_base_de_datos'
+database = 'imserso_database'
 username = 'user'
 password = 'admin01'
 

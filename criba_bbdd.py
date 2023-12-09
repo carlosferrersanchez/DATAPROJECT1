@@ -1,7 +1,7 @@
 import pymysql
 
 hostname = '127.0.0.1'
-database = 'mi_base_de_datos'
+database = 'imserso_database'
 username = 'user'
 password = 'admin01'
 
@@ -45,9 +45,6 @@ try:
     )
 
     if conexion.open:
-        print("-------------------------------------------------------------\n"
-             "Conexión establecida\n"
-             "-------------------------------------------------------------")
 
         cursor = conexion.cursor()
 
@@ -73,5 +70,3 @@ except Exception as e:
 finally:
     if 'conexion' in locals() and conexion.open:
         conexion.close()
-        print("-------------------------------------------------------------\n"
-              "Conexión cerrada")
