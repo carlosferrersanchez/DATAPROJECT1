@@ -44,12 +44,11 @@ CREATE TABLE IF NOT EXISTS personas (
 CREATE TABLE IF NOT EXISTS plazas_disponibles (
     id_plaza INT NOT NULL AUTO_INCREMENT,
     Ciudad VARCHAR(50) NOT NULL,
+    Mes VARCHAR(50) NOT NULL,
     Hotel VARCHAR(50) NOT NULL,
     Estrellas_hotel INT NOT NULL,
-    Zona_destino VARCHAR(50) NOT NULL,
     Tipo_exp VARCHAR(50) NOT NULL,
-    Mes VARCHAR(50) NOT NULL,
-    Fecha_viaje DATE NOT NULL,
+    Fecha_viaje VARCHAR(50) NOT NULL,
     Num_plazas INT NOT NULL,
     CONSTRAINT pk_plaza PRIMARY KEY (id_plaza)
 );
