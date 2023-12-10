@@ -2,8 +2,7 @@ version: '3.8'
 
 services:
   mysql:
-    container_name: mysql_bbdd
-    build: ./mysql
+    image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: my-secret-pw
       MYSQL_DATABASE: imserso_database
@@ -12,7 +11,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql:/docker-entrypoint-initdb.d
+      - ./mysql/create_table.sql:/docker-entrypoint-initdb.d/mysql/create_table.sql
 
   phpmyadmin:
     container_name: phpmyadmin

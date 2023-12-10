@@ -2,7 +2,7 @@ import subprocess
 import time
 import os
 
-scripts_folder = "scripts"
+scripts_folder = "python"
 
 script_order = [
     "personas.py",
