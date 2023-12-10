@@ -13,3 +13,16 @@ Para entrar en la Base de Datos, habra que entrar al localhost:8080 , donde vere
 Las credenciales son:
 - Usuario: user
 - Contraseña: admin01
+
+
+
+DP:
+    /python
+        launcher.py
+        /scripts.py
+        dockerfile
+    /mysql
+        docker-compose
+        dockerfile
+        create_tables.sql
+    docker-compose.yml
