@@ -2,7 +2,7 @@ import pymysql
 import random
 
 def asignacion():
-    hostname = '127.0.0.1'
+    hostname = 'mysql_server'
     database = 'imserso_database'
     username = 'user'
     password = 'admin01'

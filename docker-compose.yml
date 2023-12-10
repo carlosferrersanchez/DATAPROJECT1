@@ -26,10 +26,11 @@ services:
     depends_on:
       - mysql
 
-  python_main:
-    container_name: python_main
-    build: ./python
-    restart: 'no'
-    command: python3 main.py
-    depends_on:
-      - mysql
+  my-python-app:
+    build:
+      context: ./python
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./python:/app

@@ -232,7 +232,7 @@ def plazas_disponibles():
             datos_plazas.append((ciudad, mes, hotel, estrellas_hotel, tipo_exp, fecha_viaje, num_plazas))
 
     # Insertar datos en la tabla 'plazas_disponibles'
-    hostname = '127.0.0.1'
+    hostname = 'mysql_server'
     database = 'imserso_database'
     username = 'user'
     password = 'admin01'
