@@ -19,7 +19,6 @@ def asignacion():
             
             cursor = conexion.cursor()
 
-            # Añadir el nuevo campo 'viaje_asignado' si no existe
             cursor.execute("SHOW COLUMNS FROM personas LIKE 'viaje_asignado'")
             resultado = cursor.fetchone()
             if not resultado:
@@ -97,7 +96,6 @@ def asignacion():
                     """, (provincia_elegida, fecha_elegida))
                     conexion.commit()
 
-                    # Actualizar el campo 'viaje_asignado' a 'Si'
                     cursor.execute("""
                         UPDATE personas
                         SET viaje_asignado = 'Si'
@@ -112,7 +110,6 @@ def asignacion():
                     """, (id_persona, nombre, primer_apellido, segundo_apellido, dni, Valoracion))
                     conexion.commit()
 
-                    # Actualizar el campo 'viaje_asignado' a 'No'
                     cursor.execute("""
                         UPDATE personas
                         SET viaje_asignado = 'No'

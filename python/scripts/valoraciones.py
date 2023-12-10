@@ -6,8 +6,6 @@ def valoraciones():
     database = 'imserso_database'
     username = 'user'
     password = 'admin01'
-
-    ## Funciones para hacer Valoraciones y sumar puntos ##
         
     def valoracion_renta_economica(cursor):
         consulta = """
@@ -118,8 +116,6 @@ def valoraciones():
                 """
         cursor.execute(consulta)    
 
-    ## Conexion a la BBDD para las valoraciones ##
-
     try:
         conexion = pymysql.connect(
             host=hostname,
@@ -132,18 +128,13 @@ def valoraciones():
 
             cursor = conexion.cursor()
 
-            # Verificar si la columna ya existe en la tabla
             cursor.execute("SHOW COLUMNS FROM personas LIKE 'Valoracion'")
             resultado = cursor.fetchone()
 
-            # Si la columna no existe, crearla con valor predeterminado 0
             if not resultado:
                 cursor.execute("ALTER TABLE personas ADD COLUMN Valoracion int DEFAULT 0")
 
             conexion.commit()
-
-
-            ## Llamada a funciones para hacer Valoraciones ##
 
             valoracion_renta_economica(cursor)
             valoracion_participaciones_anteriores(cursor)

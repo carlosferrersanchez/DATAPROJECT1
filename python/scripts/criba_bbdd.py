@@ -6,13 +6,6 @@ def criba():
     username = 'user'
     password = 'admin01'
 
-    ### Funciones para las características excluyentes ###
-            # NO españoles que NO residan en España
-            # SI españoles que NO reciban algun tipo de pensión
-            # Pensionistas de viudedad de menos de 55 años
-            # Desempleados / Otro tipo de pensionistas de menos de 60 años
-            # Beneficiario de la SS menores de 65 años
-
     def no_espanoles_fuera_espana(cursor):
         consulta = "DELETE FROM personas WHERE Nacionalidad != 'España' AND Pais_residencia != 'España'"
         cursor.execute(consulta)
@@ -49,7 +42,6 @@ def criba():
 
             cursor = conexion.cursor()
 
-            # Ejecutar las funciones para excluir personas según características
             no_espanoles_fuera_espana(cursor)
             españoles_sin_pension(cursor)
             pension_viudedad_menor_55(cursor)
@@ -57,7 +49,6 @@ def criba():
             beneficiarios_ss_menores_65(cursor)
             personas_multiples_discapacidades(cursor)
 
-            # Confirmar los cambios en la base de datos
             conexion.commit()
 
             print("Personas eliminadas según las características excluyentes")

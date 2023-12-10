@@ -182,36 +182,30 @@ def plazas_disponibles():
     ]
 
 
-    # Generar datos aleatorios para plazas_disponibles
     datos_plazas = []
     meses_del_año = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"]
 
-    # Diccionario para almacenar las estrellas_hotel asignadas a cada hotel
     estrellas_por_hotel = {hotel: random.randint(3, 5) for hotel in hoteles}
 
     for ciudad in ciudades:
-        hotel = hoteles.pop(random.randint(0, len(hoteles) - 1))  # Seleccionar y eliminar un hotel aleatorio de la lista
+        hotel = hoteles.pop(random.randint(0, len(hoteles) - 1))  
         
-        # Utilizar un conjunto para almacenar los meses ya procesados
         meses_procesados = set()
 
-        for mes in meses_del_año:  # Iterar sobre los meses del 1 al 12
-            # Verificar si el mes ya ha sido procesado
+        for mes in meses_del_año:  
             if mes in meses_procesados:
                 continue
 
-            # Marcar el mes como procesado
             meses_procesados.add(mes)
 
             primer_dia_mes = datetime(2024, meses_del_año.index(mes) + 1, 1)
-            dia = random.randint(1, 22)  # Elegir un día aleatorio entre el 1 y el 22 de cada mes
+            dia = random.randint(1, 22) 
             fecha_viaje_inicio = primer_dia_mes + timedelta(days=dia - 1)
             fecha_viaje_fin = fecha_viaje_inicio + timedelta(days=6)
             fecha_viaje = f'{fecha_viaje_inicio.day:02d}/{meses_del_año.index(mes) + 1:02d}/24 - {fecha_viaje_fin.day:02d}/{meses_del_año.index(mes) + 1:02d}/24'
 
             estrellas_hotel = estrellas_por_hotel[hotel]
 
-            # Lógica para asignar el tipo_exp basado en la provincia de la ciudad
             if ciudad in viaje_montaña_provincias:
                 tipo_exp = "Montaña"
             elif ciudad in viaje_cultural_provincias:
@@ -225,13 +219,12 @@ def plazas_disponibles():
             elif ciudad in viaje_gastronómico_provincias:
                 tipo_exp = "Gastronómico"
             else:
-                tipo_exp = None  # Tipo no asignado
+                tipo_exp = None  
 
             num_plazas = 9
 
             datos_plazas.append((ciudad, mes, hotel, estrellas_hotel, tipo_exp, fecha_viaje, num_plazas))
 
-    # Insertar datos en la tabla 'plazas_disponibles'
     hostname = 'mysql_server'
     database = 'imserso_database'
     username = 'user'
