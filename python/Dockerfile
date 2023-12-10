@@ -1,12 +1,7 @@
-FROM python:3.10-slim
+FROM python:3.9
 
-WORKDIR /app
+COPY . .
 
-COPY launcher.py /app/
-COPY scripts/ /app/scripts/
+RUN pip install -r requirements.txt
 
-COPY requirements.txt /app/
-
-RUN pip install --no-cache-dir -r requirements.txt
-
-CMD ["python3", "launcher.py"]
+CMD ["python", "main.py"]

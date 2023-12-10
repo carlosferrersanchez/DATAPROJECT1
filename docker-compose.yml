@@ -2,6 +2,7 @@ version: '3.8'
 
 services:
   mysql:
+    container_name: mysql_server
     image: mysql:latest
     environment:
       MYSQL_ROOT_PASSWORD: my-secret-pw
@@ -11,7 +12,7 @@ services:
     ports:
       - "3306:3306"
     volumes:
-      - ./mysql/create_table.sql:/docker-entrypoint-initdb.d/mysql/create_table.sql
+      - ./mysql:/docker-entrypoint-initdb.d/
 
   phpmyadmin:
     container_name: phpmyadmin
@@ -32,9 +33,3 @@ services:
     command: python3 launcher.py
     depends_on:
       - mysql
-
-
-
-
-
-
