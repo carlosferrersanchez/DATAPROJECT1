@@ -2,7 +2,7 @@ import os
 import pymysql
 import pandas as pd
 
-def exportar_a_csv(tabla, nombre_archivo, ruta='./Jupyter'):
+def exportar_a_csv(tabla, nombre_archivo, ruta='/data'):
     try:
         # Utilizar los mismos detalles de conexión que en tus otros scripts
         conexion = pymysql.connect(

@@ -33,4 +33,18 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./python:/app
+      - python-data:/data
+
+  my-jupyter-app:
+    build:
+      context: ./jupyter
+      dockerfile: Dockerfile
+    ports:
+      - 10000:8888
+    volumes:
+      - python-data:/data
+
+volumes:
+  python-data:
+    driver: local
+  
