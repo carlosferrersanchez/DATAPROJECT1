@@ -1,3 +1,4 @@
+import os
 import pymysql
 import pandas as pd
 
@@ -17,7 +18,7 @@ def exportar_a_csv(tabla, nombre_archivo, ruta='./Jupyter'):
             df = pd.read_sql_query(consulta, conexion)
 
             # Construir la ruta completa del archivo CSV
-            ruta_completa = f"{ruta}{nombre_archivo}"
+            ruta_completa = os.path.join(ruta, f"{nombre_archivo}")
 
             # Exportar a archivo CSV
             df.to_csv(ruta_completa, index=False)
@@ -29,5 +30,3 @@ def exportar_a_csv(tabla, nombre_archivo, ruta='./Jupyter'):
     finally:
         if 'conexion' in locals() and conexion.open:
             conexion.close()
-
-# Exportar datos de las tablas a archivos CSV en la carpeta 'Jupyter'
