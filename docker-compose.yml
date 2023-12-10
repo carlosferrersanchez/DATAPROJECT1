@@ -30,6 +30,6 @@ services:
     container_name: python_main
     build: ./python
     restart: 'no'
-    command: python3 launcher.py
+    command: python3 main.py
     depends_on:
       - mysql
