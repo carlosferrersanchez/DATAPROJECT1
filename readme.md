@@ -28,11 +28,11 @@ Además, disponemos de un 4º contenedor con el objetivo de evaluar la calidad d
 
 En cuanto a la arquitectura, tenemos lo siguiente:
 
-(diagram.png)
+!(diagram.png)
 
 Y por lo que respecta a nuestro modelo de datos, contamos con 4 tablas: Personas, Plazas_disponibles, Viajes_asignados y Lista_espera. La tabla principal sería la de *Viajes_asignados*, en la que vemos reflejada toda la información sobre las personas con el viaje y el tipo de experiencia que le corresponde.
 
-(modelo_datos.png)
+!(modelo_datos.png)
 
 ## EJECUCIÓN DEL PROYECTO
 
