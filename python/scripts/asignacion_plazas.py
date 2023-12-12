@@ -47,47 +47,47 @@ def asignacion():
                     for fecha in fechas:
                         if preferencia is not None and fecha is not None:
                             cursor.execute("""
-                                SELECT Ciudad, Mes, Fecha_viaje, Num_plazas
+                                SELECT Ciudad, Mes, Fecha_viaje, Num_plazas, tipo_exp, hotel
                                 FROM plazas_disponibles
                                 WHERE Ciudad = %s AND Mes = %s AND Num_plazas > 0
                                 ORDER BY RAND() LIMIT 1
                             """, (preferencia, fecha))
                             resultado = cursor.fetchone()
                             if resultado:
-                                provincia_elegida, fecha_elegida, fecha_viaje, num_plazas_disponibles = resultado
+                                provincia_elegida, fecha_elegida, fecha_viaje, num_plazas_disponibles, tipo_exp, hotel = resultado
                                 break
 
                 if provincia_elegida is None:
                     for preferencia in preferencias:
                         if preferencia is not None:
                             cursor.execute("""
-                                SELECT Ciudad, Mes, Fecha_viaje, Num_plazas
+                                SELECT Ciudad, Mes, Fecha_viaje, Num_plazas, tipo_exp, hotel
                                 FROM plazas_disponibles
                                 WHERE Ciudad = %s AND Num_plazas > 0
                                 ORDER BY RAND() LIMIT 1
                             """, (preferencia,))
                             resultado = cursor.fetchone()
                             if resultado:
-                                provincia_elegida, fecha_elegida, fecha_viaje, num_plazas_disponibles = resultado
+                                provincia_elegida, fecha_elegida, fecha_viaje, num_plazas_disponibles, tipo_exp, hotel = resultado
                                 break
 
                 if provincia_elegida is None:
                     cursor.execute("""
-                        SELECT Ciudad, Mes, Fecha_viaje, Num_plazas
+                        SELECT Ciudad, Mes, Fecha_viaje, Num_plazas, tipo_exp, hotel
                         FROM plazas_disponibles
                         WHERE Num_plazas > 0
                         ORDER BY RAND() LIMIT 1
                     """)
                     resultado = cursor.fetchone()
                     if resultado:
-                        provincia_elegida, fecha_elegida, fecha_viaje, num_plazas_disponibles = resultado
+                        provincia_elegida, fecha_elegida, fecha_viaje, num_plazas_disponibles, tipo_exp, hotel = resultado
 
                 if provincia_elegida is not None and fecha_elegida is not None:
                     cursor.execute("""
                         INSERT INTO viajes_asignados 
-                        (id_persona, Nombre, Primer_apellido, Segundo_apellido, DNI, Ciudad, Mes, Fecha_viaje, Valoracion) 
-                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s)
-                    """, (id_persona, nombre, primer_apellido, segundo_apellido, dni, provincia_elegida, fecha_elegida, fecha_viaje, Valoracion))
+                        (id_persona, Nombre, Primer_apellido, Segundo_apellido, DNI, Ciudad, Mes, Fecha_viaje, Valoracion, tipo_exp, hotel) 
+                        VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)
+                    """, (id_persona, nombre, primer_apellido, segundo_apellido, dni, provincia_elegida, fecha_elegida, fecha_viaje, Valoracion, tipo_exp, hotel))
                     conexion.commit()
                     cursor.execute("""
                         UPDATE plazas_disponibles
@@ -128,3 +128,4 @@ def asignacion():
             conexion.close()
             print(f'Viajes asignados correctamente. \n'
                 f'Conexión cerrada')
+
