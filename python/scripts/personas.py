@@ -185,9 +185,9 @@ def personas():
   fake = Faker('es_ES')
   gender_detector = Detector()
 
-  personas_imserso = [generar_identidad() for _ in range(20000)]
+  personas_imserso = [generar_identidad() for _ in range(10000)]
   numero_extranjeros = random.randint(0,50)
-  for i in range(20000 - numero_extranjeros, 20000):
+  for i in range(10000 - numero_extranjeros, 10000):
     fake = Faker()
     personas_imserso[i]["Segundo_apellido"] = None
     personas_imserso[i]["Nombre"] = fake.first_name()
