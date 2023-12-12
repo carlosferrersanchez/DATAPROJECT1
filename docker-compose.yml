@@ -26,21 +26,21 @@ services:
     depends_on:
       - mysql
 
-  my-python-app:
-    build:
-      context: ./python
-      dockerfile: Dockerfile
-    ports:
-      - "8000:8000"
-    volumes:
-      - python-data:/data
-
-  my-jupyter-app:
+  my-jupyter:
     build:
       context: ./jupyter
       dockerfile: Dockerfile
     ports:
       - 10000:8888
+    volumes:
+      - python-data:/data
+
+  my-python:
+    build:
+      context: ./python
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
     volumes:
       - python-data:/data
 
