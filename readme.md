@@ -1,12 +1,12 @@
 ## DESCRIPCIÓN DEL PROYECTO
 
-El Instituto de Mayores y Servicios Sociales quiere mejorar y renovar el sistema de asignación de plazas en su programa turístico. Para ello, el objetivo de nuestro programa, Forever Young, es asignar la totalidad de plazas disponibles para el año 2024 de una manera justa y equitativa, teniendo en cuenta indicadores como la renta económica, edad, participaciones anteriores, aislamiento social, colaboración en obras sociales, entre otros. Además, nuestro modelo tendrá en cuenta para la asignación de plazas, las preferencias de las personas solicitantes en función de la experiencia viajera que cada uno de ellos elijan. 
+El **_Instituto de Mayores y Servicios Sociales_** quiere mejorar y renovar el sistema de asignación de plazas en su programa turístico. Para ello, el objetivo de nuestro programa, Forever Young, es asignar la totalidad de plazas disponibles para el año 2024 de una manera justa y equitativa, teniendo en cuenta indicadores como la renta económica, edad, participaciones anteriores, aislamiento social, colaboración en obras sociales, entre otros. Además, nuestro modelo tendrá en cuenta para la asignación de plazas, las preferencias de las personas solicitantes en función de la experiencia viajera que cada uno de ellos elijan. 
 
 ## DISEÑO DE LA ARQUITECTURA
 
 En nuestro proyecto existen 3 contenedores Docker, encargados del proceso de Extracción, Transformación y Carga:
 
-1. Contenedor Python, responsable tanto de la extracción como de la transformación de los datos. Se encarga de la creación de las diferentes bases de datos: 
+1. *Contenedor Python*, responsable tanto de la extracción como de la transformación de los datos. Se encarga de la creación de las diferentes bases de datos: 
    
   - Personas Inscritas
   - Destinos disponibles
@@ -18,13 +18,13 @@ Una vez obtenida la lista de personas inscritas realiza la criba para obtener la
 
 Finalmente, también se encarga de cargar los datos en las tablas de la base de datos SQL.
 
-2. Contenedor MySQL, encargado de almacenar la base de datos del proyecto. Creamos las tablas a partir de un archivo .sql que serán posteriormente rellenadas por un script de python.
+2. *Contenedor MySQL*, encargado de almacenar la base de datos del proyecto. Creamos las tablas a partir de un archivo .sql que serán posteriormente rellenadas por un script de python.
    
-3. Contenedor phpMyAdmin, que falicita la administración de la base de datos del proyecto a través de una interfaz web.
+3. *Contenedor phpMyAdmin*, que falicita la administración de la base de datos del proyecto a través de una interfaz web.
 
 Además, disponemos de un 4º contenedor con el objetivo de evaluar la calidad del dato:
 
-4. Contenedor Jupyter, que se conecta a python a través del volumen python-data para acceder a las bbdd: personas, plazas_disponibles, viajes_asignados y lista_espera. 
+4. *Contenedor Jupyter*, que se conecta a python a través del volumen python-data para acceder a las bbdd: personas, plazas_disponibles, viajes_asignados y lista_espera. 
 
 En cuanto a la arquitectura, tenemos lo siguiente:
 
@@ -36,12 +36,12 @@ Y por lo que respecta a nuestro modelo de datos, contamos con 4 tablas: Personas
 
 ## EJECUCIÓN DEL PROYECTO
 
- 1. Clona el repositorio: 
+1. Clona el repositorio: 
    
    ```bash
    git clone https://github.com/carlosferrersanchez/DATAPROJECT1
    
- 2. Ejecuta los siguientes comandos para levantar todos los contenedores, asignar volúmenes y puertos:
+2. Ejecuta los siguientes comandos para levantar todos los contenedores, asignar volúmenes y puertos:
    
    ```bash
    docker-compose up -d
@@ -58,9 +58,12 @@ http://localhost:10000
 
 http://localhost:8080
 
-  *Credenciales:*
-      Usuario: user
-      Contraseña: admin01
+*Credenciales:*
+
+| Usuario     | Contraseña     |
+|-------------|----------------|
+|     user    |    admin01     |
+
 
 ¡Gracias!
 
