@@ -50,10 +50,6 @@ Si deseas ver cómo funciona el código puedes consultar el siguiente vídeo:
 
 Adjuntar link youtube
 
-- A través del siguiente link podemos comprobar el contenedor jupyter:
-
-http://localhost:10000
-
 - A través del siguiente link podemos consultar las tablas creadas con el contenedor de phpmyadmin:
 
 http://localhost:8080
@@ -63,6 +59,13 @@ http://localhost:8080
 | Usuario     | Contraseña     |
 |-------------|----------------|
 |     user    |    admin01     |
+
+
+- A través del siguiente link podemos comprobar el contenedor jupyter:
+
+http://localhost:10000
+
+*Ejecutar Run - Run All Cells en el navegador de jupyter para visualizar las gráficas de los nuevos datos generados*
 
 
 ¡Gracias!
