@@ -10,6 +10,8 @@ from scipy.stats import skewnorm
 import random
 import pandas as pd
 
+num_muestra = 12000
+
 def personas():
   personas_imserso = []  
         
@@ -185,9 +187,9 @@ def personas():
   fake = Faker('es_ES')
   gender_detector = Detector()
 
-  personas_imserso = [generar_identidad() for _ in range(10000)]
+  personas_imserso = [generar_identidad() for _ in range(num_muestra)]
   numero_extranjeros = random.randint(0,50)
-  for i in range(10000 - numero_extranjeros, 10000):
+  for i in range(num_muestra - numero_extranjeros, num_muestra):
     fake = Faker()
     personas_imserso[i]["Segundo_apellido"] = None
     personas_imserso[i]["Nombre"] = fake.first_name()

@@ -1,5 +1,0 @@
-pymongo 
-seaborn 
-matplotlib
-requests
-pandas
