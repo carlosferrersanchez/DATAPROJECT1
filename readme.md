@@ -48,7 +48,7 @@ Y por lo que respecta a nuestro modelo de datos, contamos con 4 tablas: Personas
 
 Si deseas ver cómo funciona el código puedes consultar el siguiente vídeo:
 
-Adjuntar link youtube
+https://youtu.be/glmmf-I4Q6s
 
 - A través del siguiente link podemos consultar las tablas creadas con el contenedor de phpmyadmin:
 
