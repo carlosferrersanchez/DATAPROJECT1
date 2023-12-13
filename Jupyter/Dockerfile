@@ -1,7 +1,10 @@
 FROM jupyter/base-notebook
 
-COPY ./archivos /data
+COPY . /data
 
 WORKDIR /data
 
-CMD ["jupyter", "notebook", "--no-browser", "--NotebookApp.token=''", "--NotebookApp.password=''"]
+# Instala las dependencias necesarias
+RUN pip install pymongo pandas requests matplotlib seaborn
+
+CMD ["jupyter", "nbconvert", "--execute", "--to", "notebook", "--inplace", "--ExecutePreprocessor.timeout=-1", "imserso.ipynb"]
